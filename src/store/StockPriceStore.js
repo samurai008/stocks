@@ -10,12 +10,19 @@ class StockPriceStore extends EventEmitter {
 
 	reloadStocks(data) {
 		let stockData = eval(data);
+		let stockDictLocal = {};
 		stockData.forEach(val => {
 			val = val.concat(new Date().toString());
-			this.stockDict[val[0]] = {};
-			return Object.assign(this.stockDict[val[0]], {name: val[0], price: val[1], time: val[2]});
+			// if (this.stockDict[val[0]]) {
+			// 	console.log('Changing stock data', this.stockDict[val[0]])
+			// }
+			stockDictLocal[val[0]] = {
+				name: val[0], 
+				price: val[1], 
+				time: val[2]
+			};
 		});
-		console.log(this.stockDict);
+		this.stockDict = Object.assign(this.stockDict, stockDictLocal);
 		this.stocks = this.stocks.concat(stockData);
 		this.emit('stockChange');
 	}
@@ -29,7 +36,7 @@ class StockPriceStore extends EventEmitter {
 	}
 
 	getAll() {
-		return this.stocks;
+		return this.stockDict;
 	}
 }
 

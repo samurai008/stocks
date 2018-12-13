@@ -31,11 +31,11 @@ class App extends Component {
   }
 
   createStockTable(data) {
-    return data.map(([name, price, time]) => {
+    return Object.keys(data).map(key => {
       return (<tr>
-                <td>{name}</td>
-                <td>{price}</td>
-                <td>{time}</td>
+                <td>{data[key].name}</td>
+                <td>{data[key].price}</td>
+                <td>{data[key].time}</td>
              </tr>);
     })
   }
@@ -50,10 +50,10 @@ class App extends Component {
     this.getStockPrices();
 
     StockPriceStore.on('stockChange', () => {
-      console.log('New batch of stocks!');
+      console.log('New batch of stocks!', StockPriceStore.getAll());
       this.setState({
         stocks: StockPriceStore.getAll()
-      })
+      });
     })
   }
 
