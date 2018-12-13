@@ -18,7 +18,9 @@ class App extends Component {
   }
 
   openConnection() {
-    stockSocket = new WebSocket(uri);
+    stockSocket = new WebSocket(uri, {
+      rejectUnauthorized: false
+    });
     this.getStockPrices();
   }
 
