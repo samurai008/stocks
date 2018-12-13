@@ -14,8 +14,6 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      todos: TodoStore.getAll(),
-      text: 'hello2u',
       stocks: StockPriceStore.getAll()
     };
   }
@@ -31,8 +29,8 @@ class App extends Component {
   }
 
   createStockTable(data) {
-    return Object.keys(data).map(key => {
-      return (<tr>
+    return Object.keys(data).map((key, i) => {
+      return (<tr key={i}>
                 <td>{data[key].name}</td>
                 <td>{data[key].price}</td>
                 <td>{data[key].time}</td>
@@ -41,14 +39,7 @@ class App extends Component {
   }
 
   componentWillMount() {
-    TodoStore.on('change', () => {
-      this.setState({
-        todos: TodoStore.getAll()
-      });
-    });
-
     this.getStockPrices();
-
     StockPriceStore.on('stockChange', () => {
       console.log('New batch of stocks!', StockPriceStore.getAll());
       this.setState({
@@ -57,27 +48,7 @@ class App extends Component {
     })
   }
 
-  createTodo(text) {
-    console.log(text)
-    TodoActions.createTodo(Date.now() + text);
-  }
-
-  handleTextChange(event) {
-    console.log(event.target.value);
-    this.setState({
-      text: event.target.value
-    })
-  }
-
   render() {
-    const { todos } = this.state;
-
-    const TodoComponents = todos.map((todo) => {
-      return <li key={todo.id}>{todo.text}</li>
-    });
-
-    const onChangeText = e => this.handleTextChange(e);
-
     const StockTable = this.createStockTable(this.state.stocks);
 
     return (
