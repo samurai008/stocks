@@ -3,7 +3,7 @@ import "./App.css";
 import StockPriceStore from "./store/StockPriceStore";
 import * as StockPriceActions from "./actions/StockPriceActions";
 
-const uri = "ws://stocks.mnet.website";
+const uri = "wss://stocks.mnet.website";
 let stockSocket;
 window.closeConnection = () => stockSocket.close();
 
