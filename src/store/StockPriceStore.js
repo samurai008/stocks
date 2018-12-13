@@ -4,26 +4,28 @@ import dispatcher from '../dispatcher/dispatcher';
 class StockPriceStore extends EventEmitter {
 	constructor() {
 		super();
-		this.stocks = [];
 		this.stockDict = {}
 	}
 
 	reloadStocks(data) {
+		// val[0] = name
+		// val[1] = price
+		// val[2] = time
 		let stockData = eval(data);
-		let stockDictLocal = {};
+		
 		stockData.forEach(val => {
+			let base = null; // false = low, true = high
 			val = val.concat(new Date().toString());
-			// if (this.stockDict[val[0]]) {
-			// 	console.log('Changing stock data', this.stockDict[val[0]])
-			// }
-			stockDictLocal[val[0]] = {
+			if (this.stockDict[val[0]]) {
+				base = this.stockDict[val[0]].price < val[1] ? true : false;
+			}
+			this.stockDict[val[0]] = {
 				name: val[0], 
 				price: val[1], 
-				time: val[2]
+				time: val[2],
+				base: base
 			};
 		});
-		this.stockDict = Object.assign(this.stockDict, stockDictLocal);
-		this.stocks = this.stocks.concat(stockData);
 		this.emit('stockChange');
 	}
 
