@@ -64,9 +64,9 @@ class App extends Component {
                 : "bg-danger text-white"
             }
           >
-            <td>{data[key].name}</td>
-            <td>{data[key].price}</td>
-            <td>{data[key].time}</td>
+            <td className="text-center">{data[key].name}</td>
+            <td className="text-center">{data[key].price.toFixed(2)}</td>
+            <td className="text-center">{data[key].time.slice(0, 24)}</td>
           </tr>
         );
       });
