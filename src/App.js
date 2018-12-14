@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import "./App.css";
 import StockPriceStore from "./store/StockPriceStore";
 import * as StockPriceActions from "./actions/StockPriceActions";
+import tippy from 'tippy.js';
+import 'tippy.js/dist/tippy.css';
 
 const uri = "wss://livestocks5.herokuapp.com";
 let stockSocket;
@@ -12,9 +14,14 @@ class App extends Component {
     super();
     this.state = {
       stocks: StockPriceStore.getAll(),
-      sortFn: () => {}
+      sortFn: () => {},
+      mockPrices: [
+        '12.2',
+        '233.2',
+        '22.21',
+        '65.75'
+      ]
     };
-    console.log(Object.keys(this.state.stocks).length);
   }
 
   openConnection() {
@@ -53,23 +60,33 @@ class App extends Component {
       .sort(this.state.sortFn.bind(data))
       .map((key, i) => {
         return (
-          <tr
-            data-key={i}
-            key={i}
-            className={
-              data[key].base
-                ? "bg-success text-white"
-                : data[key].base === null
-                ? "text-dark"
-                : "bg-danger text-white"
-            }
-          >
-            <td className="text-center">{data[key].name}</td>
-            <td className="text-center">{data[key].price.toFixed(2)}</td>
+          <tr data-key={i} key={i}>
+            <td className="text-center" data-name={"name-" + data[key].name}>{data[key].name}</td>
+            <td
+              className={
+                data[key].base
+                  ? "bg-success text-white"
+                  : data[key].base === null
+                  ? "text-dark"
+                  : "bg-danger text-white" + " text-center"
+              }
+            >
+              {data[key].price.toFixed(2)}
+            </td>
             <td className="text-center">{data[key].time.slice(0, 24)}</td>
           </tr>
         );
       });
+  }
+
+  historyContent() {
+    let queryBuilder = `<ul class="list-unstyled">`;
+    this.state.mockPrices.forEach(price => {
+      console.log(queryBuilder);
+      queryBuilder += `<li>${price}</li>`;
+    })
+    queryBuilder.concat(`</ul>`);
+    return queryBuilder;
   }
 
   componentWillMount() {
@@ -79,6 +96,16 @@ class App extends Component {
         stocks: StockPriceStore.getAll()
       });
     });
+  }
+
+  componentDidMount() {
+    tippy(document.querySelectorAll('span[data-name]'), {
+      content: this.historyContent(),
+      onShow: () => {
+        console.log('show')
+      },
+      interactive: true,
+    })
   }
 
   render() {
@@ -139,6 +166,11 @@ class App extends Component {
               {Object.keys(this.state.stocks).length === 0
                 ? AskToLoad
                 : StockTable}
+              <tr>
+                <td><span data-name="abcd">abcd</span></td>
+                <td>12.2</td>
+                <td>Few minutes back</td>
+              </tr>
             </tbody>
           </table>
         </div>
