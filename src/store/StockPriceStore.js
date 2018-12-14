@@ -17,7 +17,10 @@ class StockPriceStore extends EventEmitter {
 			let base = null; // false = low, true = high
 			val = val.concat(new Date().toString());
 			if (this.stockDict[val[0]]) {
-				base = this.stockDict[val[0]].price < val[1] ? true : false;
+				pastPrice = ',' + this.stockDict[val[0]].price;
+				base = pastPrice < val[1] ? true : false;
+			} else {
+				pastPrice = '';
 			}
 			this.stockDict[val[0]] = {
 				name: val[0], 
