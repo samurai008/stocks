@@ -4,7 +4,7 @@ self.__precacheManifest = [
     "url": "/stocks/static/media/fa-solid-900.59ea9019.woff2"
   },
   {
-    "revision": "4223eaea92038bcc4185",
+    "revision": "c168e3ccbdc87f3483f2",
     "url": "/stocks/static/css/main.da031851.chunk.css"
   },
   {
@@ -12,8 +12,8 @@ self.__precacheManifest = [
     "url": "/stocks/static/media/fa-solid-900.1eba168c.svg"
   },
   {
-    "revision": "02dbf9d0221e1492732f",
-    "url": "/stocks/static/js/1.02dbf9d0.chunk.js"
+    "revision": "ff6eb4c4673ed3d691ef",
+    "url": "/stocks/static/js/1.ff6eb4c4.chunk.js"
   },
   {
     "revision": "27b899632dbab2084591",
@@ -40,8 +40,8 @@ self.__precacheManifest = [
     "url": "/stocks/static/media/fa-brands-400.f80b8a05.woff2"
   },
   {
-    "revision": "4223eaea92038bcc4185",
-    "url": "/stocks/static/js/main.4223eaea.chunk.js"
+    "revision": "c168e3ccbdc87f3483f2",
+    "url": "/stocks/static/js/main.c168e3cc.chunk.js"
   },
   {
     "revision": "5e405c16c959bec402cc00609e9806f9",
@@ -76,11 +76,11 @@ self.__precacheManifest = [
     "url": "/stocks/static/media/fa-brands-400.3e30e90a.svg"
   },
   {
-    "revision": "02dbf9d0221e1492732f",
+    "revision": "ff6eb4c4673ed3d691ef",
     "url": "/stocks/static/css/1.6fd1a916.chunk.css"
   },
   {
-    "revision": "d1ef655964682bc495544270f9118817",
+    "revision": "e07606d208750728dabf58bcdddf01fd",
     "url": "/stocks/index.html"
   }
 ];
