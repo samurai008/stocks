@@ -4,7 +4,7 @@ self.__precacheManifest = [
     "url": "/stocks/static/media/fa-solid-900.59ea9019.woff2"
   },
   {
-    "revision": "80b1bba5056bd32a347e",
+    "revision": "4223eaea92038bcc4185",
     "url": "/stocks/static/css/main.da031851.chunk.css"
   },
   {
@@ -40,8 +40,8 @@ self.__precacheManifest = [
     "url": "/stocks/static/media/fa-brands-400.f80b8a05.woff2"
   },
   {
-    "revision": "80b1bba5056bd32a347e",
-    "url": "/stocks/static/js/main.80b1bba5.chunk.js"
+    "revision": "4223eaea92038bcc4185",
+    "url": "/stocks/static/js/main.4223eaea.chunk.js"
   },
   {
     "revision": "5e405c16c959bec402cc00609e9806f9",
@@ -64,12 +64,12 @@ self.__precacheManifest = [
     "url": "/stocks/static/media/fa-regular-400.e54c6ae1.svg"
   },
   {
-    "revision": "f9103ae53b2dbcb0a14605eebc90a2ce",
-    "url": "/stocks/static/media/fa-solid-900.f9103ae5.eot"
-  },
-  {
     "revision": "b9c86e3abec102a2c9910dfac85c1c17",
     "url": "/stocks/static/media/fa-solid-900.b9c86e3a.ttf"
+  },
+  {
+    "revision": "f9103ae53b2dbcb0a14605eebc90a2ce",
+    "url": "/stocks/static/media/fa-solid-900.f9103ae5.eot"
   },
   {
     "revision": "3e30e90a9ee4f94765599bcefd758cb3",
@@ -80,7 +80,7 @@ self.__precacheManifest = [
     "url": "/stocks/static/css/1.6fd1a916.chunk.css"
   },
   {
-    "revision": "073589e4728d262022373043a9621259",
+    "revision": "d1ef655964682bc495544270f9118817",
     "url": "/stocks/index.html"
   }
 ];
