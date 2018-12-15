@@ -4,6 +4,7 @@ import StockPriceStore from "./store/StockPriceStore";
 import * as StockPriceActions from "./actions/StockPriceActions";
 import tippy from 'tippy.js';
 import 'tippy.js/dist/tippy.css';
+import StockModal from "./components/StockModal";
 
 const uri = "wss://livestocks5.herokuapp.com";
 let stockSocket;
@@ -20,7 +21,9 @@ class App extends Component {
         '233.2',
         '22.21',
         '65.75'
-      ]
+      ],
+      stockModalData: {},
+      showStockModal: false
     };
   }
 
@@ -59,16 +62,18 @@ class App extends Component {
     return Object.keys(data)
       .sort(this.state.sortFn.bind(data))
       .map((key, i) => {
+        let element = document.querySelector('a[data-name="' + key + '"]')
+
         return (
           <tr data-key={i} key={i}>
-            <td className="text-center" data-name={"name-" + data[key].name}>{data[key].name}</td>
+            <td className="text-center"><a href="#" onClick={e => this.showStockModal(data[key])} data-name={key}>{data[key].name}</a></td>
             <td
               className={
                 data[key].base
-                  ? "bg-success text-white"
+                  ? "bg-success text-white text-center"
                   : data[key].base === null
                   ? "text-dark"
-                  : "bg-danger text-white" + " text-center"
+                  : "bg-danger text-white text-center"
               }
             >
               {data[key].price.toFixed(2)}
@@ -79,14 +84,21 @@ class App extends Component {
       });
   }
 
-  historyContent() {
-    let queryBuilder = `<ul class="list-unstyled">`;
-    this.state.mockPrices.forEach(price => {
-      console.log(queryBuilder);
-      queryBuilder += `<li>${price}</li>`;
+  showStockModal(data) {
+    this.setState({
+      stockModalData: data,
+      showStockModal: !this.state.showStockModal
     })
-    queryBuilder.concat(`</ul>`);
-    return queryBuilder;
+  }
+
+  diffInfo(base) {
+    return base ? "On the rise!" : "On the low";
+  }
+
+  closeModal() {
+    this.setState({
+      showStockModal: !this.state.showStockModal
+    });
   }
 
   componentWillMount() {
@@ -99,16 +111,18 @@ class App extends Component {
   }
 
   componentDidMount() {
-    tippy(document.querySelectorAll('span[data-name]'), {
-      content: this.historyContent(),
-      onShow: () => {
-        console.log('show')
-      },
-      interactive: true,
-    })
   }
 
   render() {
+    const backdropStyle = {
+      position: "fixed",
+      top: "0",
+      left: "0",
+      width: "100%",
+      height: "100%",
+      backgroundColor: "rgba(0,0,0,0.7)"
+    }
+
     const StockTable = this.createStockTable(this.state.stocks);
     const AskToLoad = (
       <tr>
@@ -166,14 +180,13 @@ class App extends Component {
               {Object.keys(this.state.stocks).length === 0
                 ? AskToLoad
                 : StockTable}
-              <tr>
-                <td><span data-name="abcd">abcd</span></td>
-                <td>12.2</td>
-                <td>Few minutes back</td>
-              </tr>
             </tbody>
           </table>
         </div>
+
+        <StockModal showModal={this.state.showStockModal} data={this.state.stockModalData} closeFn={this.closeModal.bind(this)} />
+
+        <div style={backdropStyle} className={!this.state.showStockModal ? "d-none" : ""}></div>
       </div>
     );
   }
