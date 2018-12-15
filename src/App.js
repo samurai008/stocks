@@ -5,6 +5,7 @@ import * as StockPriceActions from "./actions/StockPriceActions";
 import tippy from 'tippy.js';
 import 'tippy.js/dist/tippy.css';
 import StockModal from "./components/StockModal";
+import StockList from "./components/StockList";
 
 const uri = "wss://livestocks5.herokuapp.com";
 let stockSocket;
@@ -23,7 +24,8 @@ class App extends Component {
         '65.75'
       ],
       stockModalData: {},
-      showStockModal: false
+      showStockModal: false,
+      sKey: null
     };
   }
 
@@ -42,52 +44,13 @@ class App extends Component {
     };
   }
 
-  sortByName(a, b) {
-    return a < b ? -1 : a > b ? 1 : 0;
-  }
 
-  sortByPrice(a, b) {
-    return this[b].price - this[a].price;
-  }
 
-  sortByTime(a, b) {
-    return Date.parse(this[a].time) - Date.parse(this[b].time) > 0
-      ? -1
-      : Date.parse(this[a].time) - Date.parse(this[a].time) < 0
-      ? 1
-      : 0;
-  }
-
-  createStockTable(data) {
-    return Object.keys(data)
-      .sort(this.state.sortFn.bind(data))
-      .map((key, i) => {
-        let element = document.querySelector('a[data-name="' + key + '"]')
-
-        return (
-          <tr data-key={i} key={i}>
-            <td className="text-center"><a href="#" onClick={e => this.showStockModal(data[key])} data-name={key}>{data[key].name}</a></td>
-            <td
-              className={
-                data[key].base
-                  ? "bg-success text-white text-center"
-                  : data[key].base === null
-                  ? "text-dark"
-                  : "bg-danger text-white text-center"
-              }
-            >
-              {data[key].price.toFixed(2)}
-            </td>
-            <td className="text-center">{data[key].time.slice(0, 24)}</td>
-          </tr>
-        );
-      });
-  }
-
-  showStockModal(data) {
+  showStockModal(data, key) {
     this.setState({
       stockModalData: data,
-      showStockModal: !this.state.showStockModal
+      showStockModal: !this.state.showStockModal,
+      sKey: key
     })
   }
 
@@ -123,15 +86,6 @@ class App extends Component {
       backgroundColor: "rgba(0,0,0,0.7)"
     }
 
-    const StockTable = this.createStockTable(this.state.stocks);
-    const AskToLoad = (
-      <tr>
-        <td className="text-center text-info" colSpan="3">
-          Click open to load stream.
-        </td>
-      </tr>
-    );
-
     return (
       <div>
         <div className="container p-2">
@@ -147,44 +101,14 @@ class App extends Component {
               </a>
             </div>
           </div>
-          <table className="table mt-2">
-            <thead>
-              <tr>
-                <th className="text-center">
-                  <a
-                    href="#"
-                    onClick={e => this.setState({ sortFn: this.sortByName })}
-                  >
-                    Name
-                  </a>
-                </th>
-                <th className="text-center">
-                  <a
-                    href="#"
-                    onClick={e => this.setState({ sortFn: this.sortByPrice })}
-                  >
-                    Price
-                  </a>
-                </th>
-                <th className="text-center">
-                  <a
-                    href="#"
-                    onClick={e => this.setState({ sortFn: this.sortByTime })}
-                  >
-                    Last Updated
-                  </a>
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {Object.keys(this.state.stocks).length === 0
-                ? AskToLoad
-                : StockTable}
-            </tbody>
-          </table>
+
+          <StockList stocks={this.state.stocks} stockModalFn={this.showStockModal.bind(this)} />
+
         </div>
 
-        <StockModal showModal={this.state.showStockModal} data={this.state.stockModalData} closeFn={this.closeModal.bind(this)} />
+        <StockModal showModal={this.state.showStockModal} data={this.state.stockModalData} 
+        closeFn={this.closeModal.bind(this)}
+        sKey={this.state.sKey} />
 
         <div style={backdropStyle} className={!this.state.showStockModal ? "d-none" : ""}></div>
       </div>

@@ -1,8 +1,21 @@
 import React, { Component } from "react";
+import StockPriceStore from "../store/StockPriceStore";
 
 class StockModal extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      data: null
+    };
+  }
+
+  componentWillMount() {
+    StockPriceStore.on("stockChange", () => {
+      console.log("New batch of stocks!", StockPriceStore.getAll()[this.props.sKey]);
+      this.setState({
+        data: StockPriceStore.getAll()[this.props.sKey]
+      })
+    });
   }
 
   render() {
@@ -18,27 +31,32 @@ class StockModal extends Component {
       zIndex: 1
     };
 
-    let listPrices = this.props.data.pastPrices || [];
-    const displayPrices = listPrices.reverse().map((value, i) => {
-      console.log(this.props.data.base);
-      return (
-        <li
-          key={i}
-          className={i === 0 ? "font-weight-bold" : "font-weight-light"}
-        >
-          {value}{" "}
-          {i === 0 ? (
-            this.props.data.base ? (
-              <i class="fas fa-arrow-up" />
+    let displayPrices = (<div>Nothing to display!</div>);
+
+    if (this.state.data !== null && this.state.data !== undefined) {
+      console.log('enter', this.state.data);
+      let listPrices = this.state.data.pastPrices || [];
+      displayPrices = listPrices.map((value, i) => {
+        console.log(this.props.data.base);
+        return (
+          <li
+            key={i}
+            className={i === this.state.data.pastPrices.length - 1 ? "font-weight-bold" : "font-weight-light"}
+          >
+            
+            {value} {i === this.state.data.pastPrices.length - 1 ? (
+              this.state.data.base ? (
+                <i className="fas fa-arrow-up text-success" />
+              ) : (
+                <i className="fas fa-arrow-down text-danger" />
+              )
             ) : (
-              <i class="fas fa-arrow-down" />
-            )
-          ) : (
-            ""
-          )}
-        </li>
-      );
-    });
+              ""
+            )}
+          </li>
+        );
+      }).reverse();
+    }
 
     return (
       <div
