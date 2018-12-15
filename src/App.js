@@ -9,7 +9,7 @@ import StockList from "./components/StockList";
 
 const uri = "wss://livestocks5.herokuapp.com";
 let stockSocket;
-window.closeConnection = () => stockSocket.close();
+window.closeConnection = () => stockSocket.close(); // From the console BO
 
 class App extends Component {
   constructor() {
