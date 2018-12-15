@@ -66,7 +66,6 @@ class App extends Component {
 
   componentWillMount() {
     StockPriceStore.on("stockChange", () => {
-      console.log("New batch of stocks!", StockPriceStore.getAll());
       this.setState({
         stocks: StockPriceStore.getAll()
       });

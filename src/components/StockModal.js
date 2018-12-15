@@ -11,7 +11,6 @@ class StockModal extends Component {
 
   componentWillMount() {
     StockPriceStore.on("stockChange", () => {
-      console.log("New batch of stocks!", StockPriceStore.getAll()[this.props.sKey]);
       this.setState({
         data: StockPriceStore.getAll()[this.props.sKey]
       })
@@ -34,10 +33,8 @@ class StockModal extends Component {
     let displayPrices = (<div>Nothing to display!</div>);
 
     if (this.state.data !== null && this.state.data !== undefined) {
-      console.log('enter', this.state.data);
       let listPrices = this.state.data.pastPrices || [];
       displayPrices = listPrices.map((value, i) => {
-        console.log(this.props.data.base);
         return (
           <li
             key={i}
