@@ -30,7 +30,7 @@ class StockModal extends Component {
       zIndex: 1
     };
 
-    let displayPrices = (<div>Nothing to display!</div>);
+    let displayPrices = (<div>Loading data...</div>);
 
     if (this.state.data !== null && this.state.data !== undefined) {
       let listPrices = this.state.data.pastPrices || [];

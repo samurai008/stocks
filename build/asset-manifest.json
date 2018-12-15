@@ -1,16 +1,16 @@
 {
   "main.css": "/stocks/static/css/main.da031851.chunk.css",
-  "main.js": "/stocks/static/js/main.4223eaea.chunk.js",
-  "main.js.map": "/stocks/static/js/main.4223eaea.chunk.js.map",
+  "main.js": "/stocks/static/js/main.c168e3cc.chunk.js",
+  "main.js.map": "/stocks/static/js/main.c168e3cc.chunk.js.map",
   "static/css/1.6fd1a916.chunk.css": "/stocks/static/css/1.6fd1a916.chunk.css",
-  "static/js/1.02dbf9d0.chunk.js": "/stocks/static/js/1.02dbf9d0.chunk.js",
-  "static/js/1.02dbf9d0.chunk.js.map": "/stocks/static/js/1.02dbf9d0.chunk.js.map",
+  "static/js/1.ff6eb4c4.chunk.js": "/stocks/static/js/1.ff6eb4c4.chunk.js",
+  "static/js/1.ff6eb4c4.chunk.js.map": "/stocks/static/js/1.ff6eb4c4.chunk.js.map",
   "runtime~main.js": "/stocks/static/js/runtime~main.27b89963.js",
   "runtime~main.js.map": "/stocks/static/js/runtime~main.27b89963.js.map",
   "static/media/index.css": "/stocks/static/media/fa-regular-400.06b3153d.woff",
   "static/css/main.da031851.chunk.css.map": "/stocks/static/css/main.da031851.chunk.css.map",
   "static/css/1.6fd1a916.chunk.css.map": "/stocks/static/css/1.6fd1a916.chunk.css.map",
   "index.html": "/stocks/index.html",
-  "precache-manifest.85e819e30327727c17bd7978ffaa449c.js": "/stocks/precache-manifest.85e819e30327727c17bd7978ffaa449c.js",
+  "precache-manifest.a81b0faf8515643b2d25e48e42ac369f.js": "/stocks/precache-manifest.a81b0faf8515643b2d25e48e42ac369f.js",
   "service-worker.js": "/stocks/service-worker.js"
 }
